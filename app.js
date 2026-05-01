@@ -2,7 +2,7 @@
 // Add navbar HTML
 const navbar = `
   <div class="navbar">
-    <h1>Products List</h1>
+    <h1>Products</h1>
     <div class="cart-icon" onclick="goToCart()">
       🛒 Cart (<span id="cartCount">0</span>)
     </div>
