@@ -1,0 +1,503 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 0;
+  background: #f4f4f4;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.8rem;
+}
+
+#products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+  padding: 15px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px;
+  cursor: pointer;
+  width: auto;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.card p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.card button:hover {
+  background: #0056b3;
+}
+
+/* Navbar */
+.navbar {
+  background: #333;
+  color: white;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.navbar h1 {
+  font-size: 1.3rem;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-icon {
+  cursor: pointer;
+  font-size: 16px;
+  background: #ff9800;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.cart-icon:hover {
+  background: #f57c00;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+/* Cart Items */
+.cart-items {
+  margin-bottom: 20px;
+}
+
+#cartItems {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cart-item {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.cart-item > div {
+  flex: 1;
+  min-width: 200px;
+}
+
+.cart-item h4 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.cart-item p {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.quantity-controls button {
+  padding: 6px 12px;
+  font-size: 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  min-width: 36px;
+}
+
+.quantity-controls button:hover {
+  background: #0056b3;
+}
+
+.delete-btn {
+  background: #dc3545 !important;
+  margin-left: auto;
+}
+
+.delete-btn:hover {
+  background: #c82333 !important;
+}
+
+/* Cart Summary */
+.cart-summary {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: right;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+
+.checkout-btn, .payment-btn, .razorpay-btn {
+  background: #28a745;
+  color: white;
+  padding: 14px 30px;
+  font-size: 16px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  transition: background 0.2s;
+}
+
+.checkout-btn:hover, .payment-btn:hover, .razorpay-btn:hover {
+  background: #218838;
+}
+
+.continue-btn {
+  background: #007bff;
+  margin-left: 0;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.continue-btn:hover {
+  background: #0056b3;
+}
+
+/* Address Form */
+.address-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.address-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Payment Page */
+.payment-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.order-summary {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.total-amount {
+  text-align: right;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 2px solid #333;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.payment-methods {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.payment-methods h3 {
+  margin-bottom: 15px;
+}
+
+.razorpay-btn {
+  background: #3399ff;
+  font-size: 18px;
+  padding: 15px 30px;
+  margin-top: 15px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.razorpay-btn:hover {
+  background: #2a82da;
+}
+
+/* Empty cart message */
+#cartItems p {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.4rem;
+    padding: 15px;
+  }
+
+  .navbar {
+    padding: 10px 15px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar h1 {
+    font-size: 1.2rem;
+  }
+
+  #products {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .card {
+    margin: 5px;
+    padding: 12px;
+    max-width: none;
+  }
+
+  .card img {
+    height: 150px;
+  }
+
+  .card button {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .cart-item img {
+    width: 100%;
+    height: 150px;
+  }
+
+  .cart-item > div {
+    min-width: 100%;
+  }
+
+  .quantity-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .quantity-controls button {
+    flex: 1;
+    min-width: auto;
+  }
+
+  .delete-btn {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .cart-summary {
+    padding: 15px;
+  }
+
+  .checkout-btn, .payment-btn, .razorpay-btn, .continue-btn {
+    width: 100%;
+    max-width: none;
+    padding: 14px 20px;
+  }
+
+  .address-form {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  .form-group input, .form-group textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .payment-container {
+    padding: 10px;
+  }
+
+  .order-summary {
+    padding: 15px;
+  }
+
+  .order-item {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .total-amount {
+    font-size: 1.1rem;
+  }
+
+  .payment-methods {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  #products {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .card {
+    margin: 5px 0;
+  }
+
+  .card img {
+    height: 180px;
+  }
+
+  .navbar h1 {
+    font-size: 1.1rem;
+  }
+
+  .cart-icon {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .address-form h2 {
+    font-size: 1.2rem;
+  }
+
+  .cart-item h4 {
+    font-size: 0.95rem;
+  }
+
+  .cart-item p {
+    font-size: 0.85rem;
+  }
+}

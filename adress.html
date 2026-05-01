@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Address</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="navbar">
+    <h1>Delivery Address</h1>
+    <div class="cart-icon" onclick="goToCart()">
+      🛒 Cart (<span id="cartCount">0</span>)
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="address-form">
+      <h2>Enter Delivery Address</h2>
+      
+      <div class="form-group">
+        <label>Full Name:</label>
+        <input type="text" id="name" placeholder="Enter your full name">
+      </div>
+
+      <div class="form-group">
+        <label>Address Line 1:</label>
+        <input type="text" id="address1" placeholder="House number, Building name">
+      </div>
+
+      <div class="form-group">
+        <label>Address Line 2:</label>
+        <input type="text" id="address2" placeholder="Street, Area">
+      </div>
+
+      <div class="form-group">
+        <label>City:</label>
+        <input type="text" id="city" placeholder="Enter city name">
+      </div>
+
+      <div class="form-group">
+        <label>State:</label>
+        <input type="text" id="state" placeholder="Enter state name">
+      </div>
+
+      <div class="form-group">
+        <label>Pincode:</label>
+        <input type="number" id="pincode" placeholder="Enter pincode">
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number:</label>
+        <input type="tel" id="phone" placeholder="Enter phone number">
+      </div>
+
+      <button onclick="saveAddressAndProceed()" class="payment-btn">Proceed to Payment</button>
+      <button onclick="goToCart()" class="continue-btn">Back to Cart</button>
+    </div>
+  </div>
+
+  <script src="cart.js"></script>
+  <script>
+    function saveAddressAndProceed() {
+      const name = document.getElementById('name').value;
+      const address1 = document.getElementById('address1').value;
+      const address2 = document.getElementById('address2').value;
+      const city = document.getElementById('city').value;
+      const state = document.getElementById('state').value;
+      const pincode = document.getElementById('pincode').value;
+      const phone = document.getElementById('phone').value;
+
+      if (!name || !address1 || !city || !state || !pincode || !phone) {
+        alert('Please fill all required fields!');
+        return;
+      }
+
+      const address = {
+        name: name,
+        address1: address1,
+        address2: address2,
+        city: city,
+        state: state,
+        pincode: pincode,
+        phone: phone
+      };
+
+      localStorage.setItem('deliveryAddress', JSON.stringify(address));
+      
+      // Get cart items
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      
+      const orderDetails = {
+        address: address,
+        items: cart,
+        total: total,
+        date: new Date().toISOString()
+      };
+      
+      localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+      window.location.href = 'payment.html';
+    }
+
+    // Display cart count
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCountSpan = document.getElementById('cartCount');
+      if (cartCountSpan) {
+        cartCountSpan.textContent = totalItems.toString();
+      }
+    }
+    
+    updateCartCount();
+  </script>
+</body>
+</html>

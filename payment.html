@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="navbar">
+    <h1>Payment</h1>
+  </div>
+
+  <div class="container payment-container">
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+      <div id="orderItems"></div>
+      <div class="total-amount">
+        <h3>Total Amount: $<span id="finalTotal">0</span></h3>
+      </div>
+    </div>
+
+    <div class="payment-methods">
+      <h2>Select Payment Method</h2>
+      
+      <div class="payment-option">
+        <button onclick="goToRazorpay()" class="razorpay-btn">
+          Pay with Razorpay 💳
+        </button>
+        <p style="margin-top: 10px; color: #666;">Click to pay using Razorpay</p>
+      </div>
+      
+      <div class="payment-option">
+        <button onclick="demoPayment()" class="demo-btn" style="background: #28a745;">
+          Demo Payment (Test)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const orderDetails = localStorage.getItem('orderDetails');
+      if (orderDetails) {
+        const order = JSON.parse(orderDetails);
+        const orderItemsDiv = document.getElementById('orderItems');
+        const finalTotalSpan = document.getElementById('finalTotal');
+        
+        if(order.items && order.items.length > 0) {
+          orderItemsDiv.innerHTML = order.items.map(item => `
+            <div class="order-item">
+              <span>${item.title.substring(0, 40)} x ${item.quantity}</span>
+              <span>$${(item.price * item.quantity).toFixed(2)}</span>
+            </div>
+          `).join('');
+          
+          finalTotalSpan.textContent = order.total.toFixed(2);
+        } else {
+          orderItemsDiv.innerHTML = '<p>No items in cart</p>';
+        }
+      } else {
+        document.getElementById('orderItems').innerHTML = '<p>No order found. Please go back to cart.</p>';
+      }
+    });
+
+    function goToRazorpay() {
+      // Open your Razorpay link
+      window.open('https://razorpay.me/@gangulaharish', '_blank');
+      
+      // Show success message after payment
+      setTimeout(() => {
+        if(confirm('Has the payment been completed? Click OK to finish order.')) {
+          // Clear cart after payment
+          localStorage.removeItem('cart');
+          localStorage.removeItem('orderDetails');
+          localStorage.removeItem('deliveryAddress');
+          alert('Order placed successfully! Thank you for shopping!');
+          window.location.href = 'index.html';
+        }
+      }, 3000);
+    }
+
+    function demoPayment() {
+      alert('Demo payment successful!');
+      localStorage.removeItem('cart');
+      localStorage.removeItem('orderDetails');
+      localStorage.removeItem('deliveryAddress');
+      alert('Order placed successfully! Thank you for shopping!');
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
